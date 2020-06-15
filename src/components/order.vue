@@ -23,13 +23,52 @@
                 >
 
                 </v-textarea>
+                <v-divider></v-divider>
+                <v-file-input
+                        v-model="files"
+                        label="Базы данных"
+                        messages="не более 3"
+                        :rules="[value => value.length < 4 || 'Не более 3 файлов']"
+                        multiple
+                        chips
+
+
+                >
+                    <template v-slot:selection="{ text, index }">
+                        <v-chip
+                                small
+                                text-color="white"
+                                color="#295671"
+                                close
+                                @click:close="remove(index)"
+                        >
+                            {{ text }}
+                        </v-chip>
+                    </template>
+
+                </v-file-input>
+                <v-file-input
+                        v-model="avatar"
+                        accept="image/*"
+
+                        label="Аватар"
+                >
+                </v-file-input>
+                <v-file-input
+                        v-model="image"
+                        accept="image/*"
+                        label="Картинка"
+                >
+                </v-file-input>
             </v-col>
             <v-divider vertical></v-divider>
             <v-col>
                 <h3>Выберите услугу</h3>
                 <v-select
-                        :items="servicelist"
+                        :items="ServiceList"
                         label="Услуга"
+                        v-model="SelectedService"
+
                 ></v-select>
                 <v-row>
                     <v-col>
@@ -64,9 +103,14 @@
                 </v-row>
 
             </v-col>
+
         </v-row>
-{{temp}}
-{{servicelist}}
+        <v-btn block color="secondary" dark>Block Button</v-btn>
+        <div v-for="(file, i) in files" :key="i">
+            {{file.name}}
+        </div>
+        {{SelectedService}} -
+        {{ServiceList}} - {{ files}}
     </v-container>
 
 </template>
@@ -79,8 +123,12 @@
         data: () => ({
             items:[],
             message: [],
-            servicelist: [],
-            temp:[]
+            ServiceList: [],
+            SelectedService:[],
+            image:[],
+            avatar:[],
+            files:[],
+
         }),
         computed: {
             MessageCount: function () {
@@ -94,24 +142,19 @@
             this.loadservices()
         },
         methods: {
-            // async loadservices() {
-            //     const res = await fetch('http://lk.ru/index.php?action=getservicelist', {
-            //         referrer:"",
-            //         mode:"no-cors",
-            //         credentials:'omit'
-            //     });
-            //     const data = await res.json();
-            //     this.servicelist = data;
-            // }
-            loadservices() {
+            remove (index) {
+                this.files.splice(index, 1)
+            },
 
+            loadservices() {
+                // let temp=''
                 axios
                     .get('index.php?action=getservicelist')
-                    .then(response => (this.temp = response.data))
+                    .then(response => (this.ServiceList = response.data))
                     .catch(error => console.log(error));
-                this.servicelist = Object.values(this.temp).map(v => Object.values(v))
-
-            }
+                //let services=Object.keys(temp)
+                //return services
+           }
         }
     }
 </script>
