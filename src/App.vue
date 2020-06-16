@@ -2,23 +2,29 @@
   <v-app>
 
 
-    <v-content>
-      <Order></Order>
-
-    </v-content>
+    <v-main>
+        <v-container>
+        <v-tabs>
+            <v-tab to="/order">Старт</v-tab>
+            <v-tab to="/hw">Отчеты</v-tab>
+            <v-tab>Тикет</v-tab>
+        </v-tabs>
+        <router-view />
+        </v-container>
+    </v-main>
   </v-app>
 </template>
 
 <script>
 //import HelloWorld from './components/HelloWorld';
-import Order from './components/order';
+
 
 export default {
   name: 'App',
 
   components: {
   //  HelloWorld,
-    Order,
+
   },
 
   data: () => ({

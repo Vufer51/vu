@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+<div>
         <v-row>
             <v-col>
                 <v-row justify="space-between" id="111">
@@ -111,7 +111,7 @@
         </div>
         {{SelectedService}} -
         {{ServiceList}} - {{ files}}
-    </v-container>
+    </div>
 
 </template>
 
