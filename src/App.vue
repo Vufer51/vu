@@ -6,10 +6,12 @@
         <v-container>
         <v-tabs>
             <v-tab to="/order">Старт</v-tab>
-            <v-tab to="/hw">Отчеты</v-tab>
+            <v-tab to="/report">Отчеты</v-tab>
             <v-tab>Тикет</v-tab>
         </v-tabs>
+            <transition name="fade">
         <router-view />
+            </transition>
         </v-container>
     </v-main>
   </v-app>
@@ -32,3 +34,12 @@ export default {
   }),
 };
 </script>
+<style>
+.fade-enter-active, .fade-leave-active {
+    transition: scale .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+    opacity: 0;
+}
+
+</style>

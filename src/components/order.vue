@@ -105,7 +105,7 @@
             </v-col>
 
         </v-row>
-        <v-btn block color="secondary" dark>Block Button</v-btn>
+        <v-btn block color="secondary" dark >Block Button</v-btn>
         <div v-for="(file, i) in files" :key="i">
             {{file.name}}
         </div>
@@ -159,6 +159,9 @@
     }
 </script>
 <style>
+    .text-normal {
+        text-transform: none; /* Заглавные буквы */
+}
     .compact-checkbox {
         height: 0.7em;
     }
